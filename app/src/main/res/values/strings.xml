@@ -1,0 +1,71 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">Product Manager</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--PRODUCT LIST ITEM STRINGS-->
+    <string name="product_quantity">
+        Current stock level: <xliff:g name="quantity" example="150">%d</xliff:g>
+        <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+    <string name="product_price">
+        Current price: €<xliff:g name="price" example="5.50">%d</xliff:g> per
+        <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+    <string name="product_sale">
+        Sell 1 <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+    <string name="product_details">Product details</string>
+
+
+    <!--NAV DRAWER TITLES-->
+    <string name="title_add_new">Add New</string>
+    <string name="title_add_products">New Products</string>
+    <string name="title_add_supplier">New Supplier</string>
+    <string name="category_header">Categories</string>
+    <string name="suppliers_header">Suppliers</string>
+
+    <!--PLACEHOLDER STRINGS-->
+    <string name="placeholder_product_name">Carrots</string>
+
+    <!--CONTENT DESCRIPTION STRINGS-->
+    <string name="content_desc_product_img">Product Image</string>
+
+
+    <!--STRINGS FOR DEALING WITH EXCEPTIONS -->
+    <string name="url_exception">Problem with the request URL</string>
+    <string name="response_code_exception" tools:ignore="PluralsCandidate">
+        Error: <xliff:g name="response_code">%d</xliff:g> response code received
+    </string>
+    <string name="json_exception">Problem retrieving JSON correctly</string>
+    <string name="parse_exception">Invalid date or problem with date formatting</string>
+    <string name="http_request_exception">HTTP request error</string>
+    <string name="no_network_connection">
+        Error. No network connection or unable to connect to network.
+    </string>
+    <string name="null_pointer_exception">Error. No response code found.</string>
+    <string name="keyboard_hide_exception">Error hiding keyboard</string>
+    <string name="malformed_url_exception">Problem with the thumbnail URL</string>
+    <string name="io_exception">Unknown IO exception</string>
+
+    <!--Content Uri Exceptions-->
+    <string name="content_uri_product_name_exception">Product requires a name</string>
+    <string name="content_uri_product_price_exception">Product requires a valid price</string>
+    <string name="content_uri_product_quantity_exception">Product requires a valid quantity</string>
+    <string name="content_uri_product_quantity_unit_exception">Product quantity requires a valid unit</string>
+    <string name="content_uri_category_name_exception">Category requires a name</string>
+    <string name="content_uri_supplier_name_exception">Supplier requires a name</string>
+    <string name="content_uri_supplier_address_exception">Supplier requires an address</string>
+    <string name="content_uri_supplier_phone_exception">Supplier requires a phone number</string>
+    <string name="content_uri_supplier_email_exception">Supplier requires a email</string>
+    <string name="content_uri_unsupported_deletion_exception">Deletion is not supported for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_unsupported_update_exception">Update is not supported for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
+
+
+</resources>
