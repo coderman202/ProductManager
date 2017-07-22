@@ -24,7 +24,7 @@ INSERT INTO Category (CategoryName, IconID) VALUES ('Sweets & Snacks','sweets');
 INSERT INTO Category (CategoryName, IconID) VALUES ('Vitamins & Supplements','vitamin');
 
 INSERT INTO Product (ProductName, CategoryID, SalePrice, Quantity, QuantityUnit, SupplierID, PicID) VALUES ('Red Apples',7,2.41433,18,'kg',2,'apple_red');
-INSERT INTO Product (ProductName, CategoryID, SalePrice, Quantity, QuantityUnit, SupplierID, PicID) VALUES ('Bannanas',7,2.30918,14,'kg',2,'banana');
+INSERT INTO Product (ProductName, CategoryID, SalePrice, Quantity, QuantityUnit, SupplierID, PicID) VALUES ('Bananas',7,2.30918,14,'kg',2,'banana');
 INSERT INTO Product (ProductName, CategoryID, SalePrice, Quantity, QuantityUnit, SupplierID, PicID) VALUES ('Broccoli',7,3.91355,18,'kg',4,'broccoli');
 INSERT INTO Product (ProductName, CategoryID, SalePrice, Quantity, QuantityUnit, SupplierID, PicID) VALUES ('McCambridges Brown Soda Bread (500g)',1,1.91803,27,'pack(s)',6,'brown_soda_bread_mccambridge_500g');
 INSERT INTO Product (ProductName, CategoryID, SalePrice, Quantity, QuantityUnit, SupplierID, PicID) VALUES ('Red Cabbage',7,4.16099,22,'kg',4,'cabbage_red');

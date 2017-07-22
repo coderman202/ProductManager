@@ -13,6 +13,7 @@
 
     <ImageView
         android:id="@+id/product_image"
+        android:contentDescription="@string/content_desc_product_img"
         android:layout_width="@dimen/detail_image_width_height"
         android:layout_height="@dimen/detail_image_width_height"
         tools:src="@drawable/carrots"/>

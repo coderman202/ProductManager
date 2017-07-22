@@ -72,6 +72,8 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
+    <string name="nav_category_menu_header">Categories</string>
+    <string name="add_product_title">Add New Product</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.android.productmanager;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,12 +23,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.android.productmanager.adapters.ProductAdapter;
 import com.example.android.productmanager.data.ProductManagerContract;
 import com.example.android.productmanager.data.ProductManagerDBHelper;
+import com.example.android.productmanager.model.Category;
+import com.example.android.productmanager.utils.ProductManagerUtils;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,14 +57,22 @@ public class MainActivity extends AppCompatActivity
             ProductManagerContract.ProductEntry.FK_SUPPLIER_ID
     };
 
+    public static final String[] CATEGORY_ENTRY_COLUMNS = {
+            ProductManagerContract.CategoryEntry.PK_CATEGORY_ID,
+            ProductManagerContract.CategoryEntry.NAME,
+            ProductManagerContract.CategoryEntry.ICON_ID
+    };
+
     // Navigation drawer items and associated variables
     @BindView(R.id.nav_view) NavigationView navView;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
+    List<Category> categoryList = new ArrayList<>();
 
     @BindView(R.id.fab) FloatingActionButton fab;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    ActionBar actionBar;
 
     // Variables for the CursorAdapter for product list.
     @BindView(R.id.product_lists)
@@ -73,10 +87,6 @@ public class MainActivity extends AppCompatActivity
     // Loader manager for handling the loader(s)
     LoaderManager loaderManager;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
 
         loaderManager = getSupportLoaderManager();
 
@@ -105,13 +116,7 @@ public class MainActivity extends AppCompatActivity
 
         Log.e("count", count + "");
 
-        final Menu menu = navView.getMenu();
-        final SubMenu subMenu = menu.addSubMenu("Category List");
-        for (int i = 0; i < 3; i++) {
-            subMenu.add(R.id.category_list, i, 0, "Test " + i).setIcon(R.drawable.add_product);
-            Log.e("submenu", subMenu.getItem(i).toString());
-            subMenu.getItem(i).setOnMenuItemClickListener(this);
-        }
+
         // Test ends here
     }
 
@@ -129,18 +134,40 @@ public class MainActivity extends AppCompatActivity
         productListView.setAdapter(productAdapter);
     }
 
+    /**
+     * Set up the Nav drawer. Populate with a list of categories also.
+     */
     private void initNavDrawer() {
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        String sortOrder = ProductManagerContract.CategoryEntry.NAME + " ASC";
+
+        Uri categoryTableUri = ProductManagerContract.CategoryEntry.CONTENT_URI;
+
+        Cursor cursor = getContentResolver().query(categoryTableUri, CATEGORY_ENTRY_COLUMNS, null, null, sortOrder);
+
+        categoryList = ProductManagerUtils.getCategoriesFromCursor(this, cursor);
+
+
+        final Menu menu = navView.getMenu();
+        final SubMenu subMenu = menu.addSubMenu(getString(R.string.nav_category_menu_header));
+        for (int i = 0; i < categoryList.size(); i++) {
+            String name = categoryList.get(i).getCategoryName();
+            MenuItem item = subMenu.add(Menu.NONE, i, 0, name);
+            item.setOnMenuItemClickListener(this);
+        }
+
+
         navView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item){
-        Toast.makeText(this, item.getTitle().toString(), Toast.LENGTH_LONG).show();
+        actionBar.setSubtitle(item.getTitle().toString());
+        //Toast.makeText(this, item.getItemId(), Toast.LENGTH_LONG).show();
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -148,7 +175,13 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onClick(View view){
-
+        int id = view.getId();
+        switch (id) {
+            case R.id.fab:
+                Intent intent = new Intent(this, AddNewProductActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -188,11 +221,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.add_new_product) {
-
-        } else if (id == R.id.add_new_supplier) {
-
-        }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
