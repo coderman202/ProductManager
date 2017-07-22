@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
 
         navView.setNavigationItemSelectedListener(this);
 
+        // Just testing here to ensure db was populating properly
         ProductManagerDBHelper dbHelper = new ProductManagerDBHelper(this);
 
         int count = dbHelper.entryCount();
@@ -64,12 +65,12 @@ public class MainActivity extends AppCompatActivity
             Log.e("submenu", subMenu.getItem(i).toString());
             subMenu.getItem(i).setOnMenuItemClickListener(this);
         }
+        // Test ends here
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item){
         Toast.makeText(this, item.getTitle().toString(), Toast.LENGTH_LONG).show();
-
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -121,8 +122,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.add_new_supplier) {
 
-        } else if(id == 1){
-            Log.e("heyheyhey", "testtetstets");
         }
 
         drawer.closeDrawer(GravityCompat.START);

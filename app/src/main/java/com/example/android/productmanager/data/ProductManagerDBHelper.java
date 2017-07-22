@@ -189,8 +189,8 @@ public class ProductManagerDBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * A method to check if the db is empty.
-     * @return      number of total row in db across all tables
+     * A test method to just ensure the db has entries and to ensure all entries are there.
+     * @return      number of total row in db across all tables multiplied by one another.
      */
     public int entryCount(){
         SQLiteDatabase db = this.getReadableDatabase();
