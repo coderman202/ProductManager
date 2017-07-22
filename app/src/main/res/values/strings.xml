@@ -13,12 +13,18 @@
     <string name="product_quantity">
         Current stock level: <xliff:g name="quantity" example="150">%d</xliff:g>
         <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+
     <string name="product_price">
-        Current price: €<xliff:g name="price" example="5.50">%d</xliff:g> per
+        Current price: €<xliff:g name="price" example="5.50">%1$.2f</xliff:g> per
         <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+
     <string name="product_sale">
         Sell 1 <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
-    <string name="product_details">Product details</string>
+
+    <string name="product_details">Product Details</string>
+
+    <string name="product_supplier">
+        Current Supplier: <xliff:g name="supplier" example="Ace Meats Ltd.">%s</xliff:g></string>
 
 
     <!--NAV DRAWER TITLES-->

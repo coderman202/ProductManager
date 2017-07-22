@@ -76,15 +76,15 @@ public class ProductManagerProvider extends ContentProvider {
 
         // URIs for the Product table
         uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_PRODUCTS, PRODUCT_TABLE);
-        uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_PRODUCTS, PRODUCT_TABLE_ROW);
+        uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_PRODUCTS + "/#", PRODUCT_TABLE_ROW);
 
         // URIs for the Category table
         uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_CATEGORY, CATEGORY_TABLE);
-        uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_CATEGORY, CATEGORY_TABLE_ROW);
+        uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_CATEGORY + "/#", CATEGORY_TABLE_ROW);
 
         // URIs for the Supplier table
         uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_SUPPLIER, SUPPLIER_TABLE);
-        uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_SUPPLIER, SUPPLIER_TABLE_ROW);
+        uriMatcher.addURI(ProductManagerContract.CONTENT_AUTHORITY, PATH_SUPPLIER + "/#", SUPPLIER_TABLE_ROW);
 
     }
 

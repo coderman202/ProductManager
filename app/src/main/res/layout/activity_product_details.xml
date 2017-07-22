@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/product_name"
+        style="@style/DetailHeaderStyle"
+        tools:text="@string/placeholder_product_name"/>
+
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="@dimen/detail_image_width_height"
+        android:layout_height="@dimen/detail_image_width_height"
+        tools:src="@drawable/carrots"/>
+
+    <TextView
+        android:id="@+id/product_quantity"
+        tools:text="@string/product_quantity"
+        style="@style/DetailViewStyle"/>
+
+    <TextView
+        android:id="@+id/product_price"
+        tools:text="@string/product_price"
+        style="@style/DetailViewStyle"/>
+
+    <SeekBar
+        android:id="@+id/product_price_level"
+        android:max="10"
+        android:verticalScrollbarPosition="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/product_supplier"
+        tools:text="@string/product_supplier"
+        style="@style/DetailViewStyle"/>
+
+</LinearLayout>

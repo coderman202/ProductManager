@@ -25,6 +25,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--STYLES FOR THE LIST ITEMS-->
     <style name="ListItemButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -51,6 +52,35 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/list_item_header_text_color</item>
         <item name="android:padding">@dimen/list_item_view_padding</item>
+    </style>
+
+    <!--STYLES FOR THE DETAILS SCREENS-->
+    <style name="DetailsButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:padding">@dimen/list_item_view_padding</item>
+        <item name="android:drawablePadding">@dimen/list_item_view_drawable_padding</item>
+    </style>
+
+    <style name="DetailViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body1</item>
+        <item name="android:padding">@dimen/detail_item_view_padding</item>
+    </style>
+
+    <style name="DetailHeaderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Headline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/list_item_header_text_color</item>
+        <item name="android:padding">@dimen/detail_item_view_padding</item>
     </style>
 
 </resources>

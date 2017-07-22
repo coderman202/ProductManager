@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
             ProductManagerContract.ProductEntry.QUANTITY,
             ProductManagerContract.ProductEntry.QUANTITY_UNIT,
             ProductManagerContract.ProductEntry.SALE_PRICE,
+            ProductManagerContract.ProductEntry.PIC_ID,
             ProductManagerContract.ProductEntry.FK_CATEGORY_ID,
             ProductManagerContract.ProductEntry.FK_SUPPLIER_ID
     };
@@ -87,11 +88,14 @@ public class MainActivity extends AppCompatActivity
 
         loaderManager = getSupportLoaderManager();
 
+        initProductAdapter();
+
         loaderManager.restartLoader(PRODUCT_LOADER_ID, null, this);
 
         fab.setOnClickListener(this);
 
         initNavDrawer();
+
 
 
         // Just testing here to ensure db was populating properly
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity
      * to set it to vertical.
      */
     private void initProductAdapter() {
-        productAdapter = new ProductAdapter(this, productListCursor);
+        productAdapter = new ProductAdapter(this);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         productListView.setLayoutManager(layoutManager);
         productListView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).
@@ -196,7 +200,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String sortOrder = ProductManagerContract.ProductEntry.QUANTITY + " ASC";
+        String sortOrder = ProductManagerContract.ProductEntry.NAME + " ASC";
 
         Uri productTableUri = ProductManagerContract.ProductEntry.CONTENT_URI;
 
@@ -206,14 +210,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        productAdapter.swapCursor(data);
 
-        productListCursor = data;
-        initProductAdapter();
+
+        if (productAdapter.getItemCount() == 0) {
+
+        }
+
 
 
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        productAdapter.swapCursor(null);
     }
 }

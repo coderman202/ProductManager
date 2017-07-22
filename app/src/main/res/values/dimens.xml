@@ -12,4 +12,8 @@
     <dimen name="list_item_view_drawable_padding">4dp</dimen>
     <dimen name="list_item_divider_width">1dp</dimen>
     <dimen name="list_item_divider_margin">4dp</dimen>
+
+    <!--DETAIL SCREEN DIMENS-->
+    <dimen name="detail_image_width_height">200dp</dimen>
+    <dimen name="detail_item_view_padding">12dp</dimen>
 </resources>

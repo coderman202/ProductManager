@@ -39,7 +39,6 @@
         android:layout_toEndOf="@id/product_image"
         android:layout_below="@id/product_price"
         tools:text="@string/product_sale"
-        android:drawableEnd="@drawable/product_sale"
         style="@style/ListItemButtonStyle"/>
 
     <TextView
