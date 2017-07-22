@@ -47,9 +47,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
     }
 
-    public ProductAdapter(Context context){
+    public ProductAdapter(Context context, Cursor cursor) {
         this.context = context;
-
+        this.cursor = cursor;
     }
 
     @Override

@@ -10,4 +10,6 @@
     <dimen name="list_item_view_padding">4dp</dimen>
     <dimen name="list_item_padding">8dp</dimen>
     <dimen name="list_item_view_drawable_padding">4dp</dimen>
+    <dimen name="list_item_divider_width">1dp</dimen>
+    <dimen name="list_item_divider_margin">4dp</dimen>
 </resources>
