@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.android.productmanager.data.ProductManagerContract;
 import com.example.android.productmanager.model.Category;
+import com.example.android.productmanager.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +49,34 @@ public class ProductManagerUtils {
         cursor.close();
 
         return categoryList;
+    }
+
+    /**
+     * A method to get a list of {@link Supplier} objects from the cursor parameter. Closes the
+     * passed cursor after the list is generated as it will not be needed anymore.
+     *
+     * @param context The context.
+     * @param cursor  The cursor
+     * @return A list of {@link Supplier} objects.
+     */
+    public static List<Supplier> getSuppliersFromCursor(Context context, Cursor cursor) {
+
+        List<Supplier> supplierList = new ArrayList<>();
+
+        cursor.moveToFirst();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            int suppID = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.SupplierEntry.PK_SUPPLIER_ID));
+            String suppName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.SupplierEntry.NAME));
+            String suppAddress = cursor.getString(cursor.getColumnIndex(ProductManagerContract.SupplierEntry.ADDRESS));
+            String suppEmail = cursor.getString(cursor.getColumnIndex(ProductManagerContract.SupplierEntry.EMAIL));
+            String suppPhone = cursor.getString(cursor.getColumnIndex(ProductManagerContract.SupplierEntry.PHONE));
+
+
+            supplierList.add(new Supplier(suppID, suppName, suppAddress, suppEmail, suppPhone));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return supplierList;
     }
 }

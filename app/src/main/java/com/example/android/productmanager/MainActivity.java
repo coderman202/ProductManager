@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity
     RecyclerView productListView;
     LinearLayoutManager layoutManager;
     ProductAdapter productAdapter;
-    Cursor productListCursor;
 
     // Key for saving the scroll position of the RecyclerView.
     public static final String BUNDLE_RECYCLER_LAYOUT_KEY = "RecyclerView Layout";

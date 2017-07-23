@@ -96,6 +96,11 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
+    <string name="enter_product_name">Enter Product Name</string>
+    <string name="set_price_text">Set price:</string>
+    <string name="set_quantity_text">Set quantity:</string>
+    <string name="set_supplier_text">Choose supplier:</string>
+    <string name="set_category_text">Choose category:</string>
 
 
 </resources>

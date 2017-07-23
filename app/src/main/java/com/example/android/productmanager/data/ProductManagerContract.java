@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import java.util.Arrays;
+
 /**
  * Created by Reggie on 21/07/2017.
  * A custom contract class to store the information about the tables in the db
@@ -64,6 +66,9 @@ public class ProductManagerContract {
         public static final String UNIT_PACK = "pack(s)";
         public static final String UNIT_BOTTLE = "bottle(s)";
 
+        public static final String[] POSSIBLE_UNITS_ARRAY = new String[]{
+                UNIT_G, UNIT_BOTTLE, UNIT_KG, UNIT_L, UNIT_MG, UNIT_ML, UNIT_PACK};
+
         /**
          * A Method to check that the quantity unit to be inserted is a valid unit. Returns true
          * if so.
@@ -71,9 +76,7 @@ public class ProductManagerContract {
          * @return      true or false
          */
         public static boolean isValidUnit(String unit){
-            return(unit.equals(UNIT_KG) || unit.equals(UNIT_G) || unit.equals(UNIT_ML) ||
-                    unit.equals(UNIT_L) || unit.equals(UNIT_MG) || unit.equals(UNIT_PACK) ||
-                    unit.equals(UNIT_BOTTLE));
+            return (Arrays.asList(POSSIBLE_UNITS_ARRAY).contains(unit));
         }
 
     }
