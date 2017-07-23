@@ -30,4 +30,18 @@
     <color name="button_delete_start_color">#E57373</color>
 
 
+    <!--Color gradient for seekbar-->
+    <color name="seekbar_empty_end_color">#78909C</color>
+    <color name="seekbar_empty_centre_color">#BDBDBD</color>
+    <color name="seekbar_empty_start_color">@color/nav_header_start_color</color>
+
+    <color name="seekbar_secondary_end_color">#E65100</color>
+    <color name="seekbar_secondary_centre_color">#F57C00</color>
+    <color name="seekbar_secondary_start_color">#FFCC80</color>
+
+    <color name="seekbar_progress_end_color">@color/button_end_color</color>
+    <color name="seekbar_progress_centre_color">@color/button_centre_color</color>
+    <color name="seekbar_progress_start_color">@color/button_start_color</color>
+
+
 </resources>

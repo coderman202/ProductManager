@@ -9,11 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.android.productmanager.adapters.CategorySpinnerAdapter;
 import com.example.android.productmanager.adapters.SupplierSpinnerAdapter;
@@ -28,7 +30,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddNewProductActivity extends AppCompatActivity {
+public class AddNewProductActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String LOG_TAG = AddNewProductActivity.class.getSimpleName();
 
     private ActionBar actionBar;
 
@@ -44,6 +48,8 @@ public class AddNewProductActivity extends AppCompatActivity {
     Spinner supplierSelector;
     @BindView(R.id.category_selector)
     Spinner categorySelector;
+    @BindView(R.id.add_new_product)
+    TextView addProductButton;
 
     List<Category> categoryList = new ArrayList<>();
 
@@ -68,6 +74,20 @@ public class AddNewProductActivity extends AppCompatActivity {
 
     private SupplierSpinnerAdapter supplierAdapter;
 
+    // List of possible quantity unit options to populate the unitSelector.
+    final String[] unitOptions = ProductManagerContract.ProductEntry.POSSIBLE_UNITS_ARRAY;
+
+
+    // List of all variables needed to add a new product to the database
+    private String productName;
+    private int categoryID;
+    private int supplierID;
+    private int quantity;
+    private String quantityUnit;
+    private float salePrice;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +100,23 @@ public class AddNewProductActivity extends AppCompatActivity {
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        addProductButton.setOnClickListener(this);
+
         initQuantitySelectors();
         initCategorySpinner();
         initSupplierSpinner();
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.add_new_product:
+                getAllProductValues();
+                break;
+        }
     }
 
     /**
@@ -104,7 +136,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
         quantityPicker.setWrapSelectorWheel(true);
 
-        final String[] unitOptions = ProductManagerContract.ProductEntry.POSSIBLE_UNITS_ARRAY;
+
         unitSelector.setMinValue(0);
         unitSelector.setMaxValue(unitOptions.length - 1);
         unitSelector.setFormatter(new NumberPicker.Formatter() {
@@ -115,11 +147,12 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set up the category spinner to choose category. Get category list from the db.
+     */
     private void initCategorySpinner() {
         String sortOrder = ProductManagerContract.CategoryEntry.NAME + " ASC";
-
         Uri categoryTableUri = ProductManagerContract.CategoryEntry.CONTENT_URI;
-
         Cursor cursor = getContentResolver().query(categoryTableUri, CATEGORY_ENTRY_COLUMNS, null, null, sortOrder);
 
         categoryList = ProductManagerUtils.getCategoriesFromCursor(this, cursor);
@@ -129,7 +162,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         categorySelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("cat", categoryList.get(i).getCategoryName());
+                categoryID = categoryList.get(i).getCategoryID();
             }
 
             @Override
@@ -139,11 +172,12 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set up the supplier spinner to choose supplier. Get supplier list from the db.
+     */
     private void initSupplierSpinner() {
         String sortOrder = ProductManagerContract.SupplierEntry.NAME + " ASC";
-
         Uri uri = ProductManagerContract.SupplierEntry.CONTENT_URI;
-
         Cursor cursor = getContentResolver().query(uri, SUPPLIER_ENTRY_COLUMNS, null, null, sortOrder);
 
         supplierList = ProductManagerUtils.getSuppliersFromCursor(this, cursor);
@@ -153,7 +187,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         supplierSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.e("supp", supplierList.get(i).getSupplierName());
+                supplierID = supplierList.get(i).getSupplierID();
             }
 
             @Override
@@ -161,6 +195,26 @@ public class AddNewProductActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void getAllProductValues() {
+
+
+        quantity = quantityPicker.getValue() * 5;
+        quantityUnit = unitOptions[unitSelector.getValue()];
+
+    }
+
+    /**
+     * Hide keyboard.
+     */
+    public void hideKeyboard() {
+        try {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, getString(R.string.keyboard_hide_exception), e);
+        }
     }
 
     @Override
