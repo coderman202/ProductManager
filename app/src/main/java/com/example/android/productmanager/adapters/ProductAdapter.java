@@ -23,13 +23,11 @@ import butterknife.ButterKnife;
  * Custom adapter to handle the list of products
  */
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements View.OnClickListener {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
     private Cursor cursor;
 
     private Context context;
-
-    private int productID;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +65,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position){
         cursor.moveToPosition(position);
 
-        productID = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PK_PRODUCT_ID));
+        final int productID = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PK_PRODUCT_ID));
 
         String productName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.NAME));
         float price = cursor.getFloat(cursor.getColumnIndex(ProductManagerContract.ProductEntry.SALE_PRICE));
@@ -94,7 +92,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.quantityView.setTextColor(Color.BLACK);
         }
 
-        holder.detailsView.setOnClickListener(this);
+        holder.detailsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("productID", productID);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -105,18 +110,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public Cursor getCursor() {
         return cursor;
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
-            case R.id.product_details_button:
-                Intent intent = new Intent(context, ProductDetailsActivity.class);
-                intent.putExtra("productID", productID);
-                context.startActivity(intent);
-        }
-
     }
 
 

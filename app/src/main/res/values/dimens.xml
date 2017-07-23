@@ -19,4 +19,8 @@
     <!--DETAIL SCREEN DIMENS-->
     <dimen name="detail_image_width_height">200dp</dimen>
     <dimen name="detail_item_view_padding">12dp</dimen>
+
+    <!--BUTTON DIMENS-->
+    <dimen name="button_padding">4dp</dimen>
+    <dimen name="button_margin">8dp</dimen>
 </resources>

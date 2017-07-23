@@ -24,4 +24,10 @@
     <color name="button_end_color">#004D40</color>
     <color name="button_centre_color">#00695C</color>
     <color name="button_start_color">#00897B</color>
+
+    <color name="button_delete_end_color">#B71C1C</color>
+    <color name="button_delete_centre_color">#FF1744</color>
+    <color name="button_delete_start_color">#E57373</color>
+
+
 </resources>

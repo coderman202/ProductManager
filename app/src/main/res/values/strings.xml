@@ -33,6 +33,29 @@
     <string name="title_add_supplier">New Supplier</string>
     <string name="category_header">Categories</string>
     <string name="suppliers_header">Suppliers</string>
+    <string name="nav_category_menu_header">Categories</string>
+
+    <!--PRODUCT DETAILS SCREEN STRINGS-->
+    <string name="add_product_title">Add New Product</string>
+    <string name="order_product">Make order</string>
+    <string name="order_prompt">Stock empty, order more?</string>
+    <string name="email_intent_chooser_header">Order by Email</string>
+    <string name="email_subject">
+        New <xliff:g name="product_name" example="Lemons">%s</xliff:g> order</string>
+    <string name="snackbar_action_message">OK</string>
+    <string name="product_delete">Delete item?</string>
+
+    <string name="product_delete_dialog_title">
+        Really Delete <xliff:g name="product_name" example="Lemons">%s</xliff:g> From Database?
+    </string>
+    <string name="product_delete_dialog_yes">Yes</string>
+    <string name="product_delete_dialog_no">No</string>
+    <string name="product_delete_confirmation">
+        <xliff:g name="product_name" example="Lemons">%s</xliff:g> has been deleted.
+    </string>
+    <string name="product_delete_rejection">
+        You chose not to delete <xliff:g name="product_name" example="Lemons">%s</xliff:g>.
+    </string>
 
     <!--PLACEHOLDER STRINGS-->
     <string name="placeholder_product_name">Carrots</string>
@@ -73,8 +96,6 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
-    <string name="nav_category_menu_header">Categories</string>
-    <string name="add_product_title">Add New Product</string>
 
 
 </resources>

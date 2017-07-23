@@ -33,8 +33,9 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textColor">@color/button_text_color</item>
-        <item name="android:padding">@dimen/list_item_view_padding</item>
+        <item name="android:padding">@dimen/button_padding</item>
         <item name="android:drawablePadding">@dimen/list_item_view_drawable_padding</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
     </style>
 
     <style name="ListItemViewStyle">
@@ -55,15 +56,7 @@
     </style>
 
     <!--STYLES FOR THE DETAILS SCREENS-->
-    <style name="DetailsButtonStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body2</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/button_background</item>
-        <item name="android:textColor">@color/button_text_color</item>
-        <item name="android:padding">@dimen/list_item_view_padding</item>
-        <item name="android:drawablePadding">@dimen/list_item_view_drawable_padding</item>
+    <style name="DetailsButtonStyle" parent="ListItemButtonStyle">
     </style>
 
     <style name="DetailViewStyle">
