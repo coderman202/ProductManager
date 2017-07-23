@@ -30,6 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.android.productmanager.R.id.price;
+
 public class AddNewProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String LOG_TAG = AddNewProductActivity.class.getSimpleName();
@@ -42,6 +44,8 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     EditText nameEditText;
     @BindView(R.id.price_setter)
     SeekBar priceSetter;
+    @BindView(price)
+    TextView priceView;
     @BindView(R.id.unit_selector)
     NumberPicker unitSelector;
     @BindView(R.id.supplier_selector)
@@ -106,7 +110,44 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
         initCategorySpinner();
         initSupplierSpinner();
 
+        initPriceSetter();
 
+        initNameEditText();
+
+
+    }
+
+    private void initNameEditText() {
+        /*nameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard();
+                }
+            }
+        });*/
+
+    }
+
+    private void initPriceSetter() {
+        priceSetter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                salePrice = (float) i / 100;
+                String priceText = "€" + salePrice;
+                priceView.setText(priceText);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     @Override
@@ -133,8 +174,14 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
                 return String.valueOf(i * 5);
             }
         });
-
         quantityPicker.setWrapSelectorWheel(true);
+        quantityPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
+                quantity = newVal * 5;
+                Log.e("quantity", quantity + "");
+            }
+        });
 
 
         unitSelector.setMinValue(0);
@@ -143,6 +190,14 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             @Override
             public String format(int i) {
                 return unitOptions[i];
+            }
+        });
+        unitSelector.setWrapSelectorWheel(true);
+        unitSelector.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
+                quantityUnit = unitOptions[newVal];
+                Log.e("unit", quantityUnit);
             }
         });
     }
@@ -199,9 +254,8 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
 
     public void getAllProductValues() {
 
+        productName = nameEditText.getText().toString();
 
-        quantity = quantityPicker.getValue() * 5;
-        quantityUnit = unitOptions[unitSelector.getValue()];
 
     }
 

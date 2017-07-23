@@ -17,7 +17,7 @@
 
     <string name="product_price">
         Current price: €<xliff:g name="price" example="5.50">%1$.2f</xliff:g> per
-        <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+        <xliff:g name="quantity_unit" example="kg">%2$s</xliff:g></string>
 
     <string name="product_sale">
         Sell 1 <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
@@ -105,4 +105,5 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
+    <string name="initial_price">€0.00</string>
 </resources>
