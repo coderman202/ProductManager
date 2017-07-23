@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
@@ -18,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -26,7 +26,6 @@ import android.view.View;
 
 import com.example.android.productmanager.adapters.ProductAdapter;
 import com.example.android.productmanager.data.ProductManagerContract;
-import com.example.android.productmanager.data.ProductManagerDBHelper;
 import com.example.android.productmanager.model.Category;
 import com.example.android.productmanager.utils.ProductManagerUtils;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
@@ -34,6 +33,7 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     ActionBar actionBar;
+    @BindString(R.string.main_subtitle)
+    String actionBarSubTitle;
 
     // Variables for the CursorAdapter for product list.
     @BindView(R.id.product_lists)
@@ -80,8 +82,14 @@ public class MainActivity extends AppCompatActivity
     LinearLayoutManager layoutManager;
     ProductAdapter productAdapter;
 
+    // This will be set when a category is chosen in the nav drawer. Set default as -1.
+    private int categoryID = -1;
+
     // Key for saving the scroll position of the RecyclerView.
     public static final String BUNDLE_RECYCLER_LAYOUT_KEY = "RecyclerView Layout";
+
+    // Key for saving action bar subtitle
+    public static final String ACTION_BAR_SUBTITLE_KEY = "Subtitle";
 
     // Loader manager for handling the loader(s)
     LoaderManager loaderManager;
@@ -100,23 +108,32 @@ public class MainActivity extends AppCompatActivity
 
         initProductAdapter();
 
-        loaderManager.restartLoader(PRODUCT_LOADER_ID, null, this);
-
         fab.setOnClickListener(this);
 
         initNavDrawer();
 
+        if (savedInstanceState != null) {
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT_KEY);
+            layoutManager.onRestoreInstanceState(savedRecyclerLayoutState);
+            actionBarSubTitle = savedInstanceState.getString(ACTION_BAR_SUBTITLE_KEY);
+        }
 
+        actionBar.setSubtitle(actionBarSubTitle);
 
-        // Just testing here to ensure db was populating properly
-        ProductManagerDBHelper dbHelper = new ProductManagerDBHelper(this);
+        loaderManager.restartLoader(PRODUCT_LOADER_ID, null, this);
+    }
 
-        int count = dbHelper.entryCount();
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT_KEY, layoutManager.onSaveInstanceState());
+        outState.putString(ACTION_BAR_SUBTITLE_KEY, actionBarSubTitle);
+    }
 
-        Log.e("count", count + "");
-
-
-        // Test ends here
+    @Override
+    public void onRestoreInstanceState(Bundle inState) {
+        Parcelable savedRecyclerLayoutState = inState.getParcelable(BUNDLE_RECYCLER_LAYOUT_KEY);
+        layoutManager.onRestoreInstanceState(savedRecyclerLayoutState);
+        actionBarSubTitle = inState.getString(ACTION_BAR_SUBTITLE_KEY);
     }
 
     /**
@@ -165,8 +182,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onMenuItemClick(MenuItem item){
-        actionBar.setSubtitle(item.getTitle().toString());
-        //Toast.makeText(this, item.getItemId(), Toast.LENGTH_LONG).show();
+        actionBarSubTitle = item.getTitle().toString();
+        actionBar.setSubtitle(actionBarSubTitle);
+        categoryID = categoryList.get(item.getItemId()).getCategoryID();
+        loaderManager.restartLoader(PRODUCT_LOADER_ID, null, this);
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -230,6 +249,12 @@ public class MainActivity extends AppCompatActivity
         String sortOrder = ProductManagerContract.ProductEntry.NAME + " ASC";
 
         Uri productTableUri = ProductManagerContract.ProductEntry.CONTENT_URI;
+
+        // Check if category id has been set. If so, show only products in selected category.
+        if (categoryID != -1) {
+            String whereClause = ProductManagerContract.ProductEntry.FK_CATEGORY_ID + " = " + categoryID;
+            return new CursorLoader(this, productTableUri, PRODUCT_ENTRY_COLUMNS, whereClause, null, sortOrder);
+        }
 
         return new CursorLoader(this, productTableUri, PRODUCT_ENTRY_COLUMNS, null, null, sortOrder);
 
