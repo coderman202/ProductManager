@@ -83,4 +83,10 @@
         <item name="android:padding">@dimen/detail_item_view_padding</item>
     </style>
 
+    <style name="DetailSubheaderStyle" parent="DetailHeaderStyle">
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Body2</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textColor">@color/base_font_color</item>
+    </style>
+
 </resources>

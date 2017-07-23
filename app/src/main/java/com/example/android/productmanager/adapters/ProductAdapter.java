@@ -29,6 +29,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     private Context context;
 
+    private int productID;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.product_name) TextView nameView;
@@ -37,7 +39,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         @BindView(R.id.product_price) TextView priceView;
         @BindView(R.id.product_sale_button) TextView saleView;
         @BindView(R.id.product_details_button) TextView detailsView;
-
 
         public ViewHolder(View view){
             super(view);
@@ -65,6 +66,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         cursor.moveToPosition(position);
+
+        productID = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PK_PRODUCT_ID));
 
         String productName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.NAME));
         float price = cursor.getFloat(cursor.getColumnIndex(ProductManagerContract.ProductEntry.SALE_PRICE));
@@ -110,6 +113,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         switch (id) {
             case R.id.product_details_button:
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("productID", productID);
                 context.startActivity(intent);
         }
 

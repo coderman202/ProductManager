@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/product_name"
         style="@style/DetailHeaderStyle"
-        tools:text="@string/placeholder_product_name"/>
+        tools:text="@string/placeholder_product_name"
+        android:layout_alignParentTop="true"/>
 
     <ImageView
         android:id="@+id/product_image"
         android:contentDescription="@string/content_desc_product_img"
         android:layout_width="@dimen/detail_image_width_height"
         android:layout_height="@dimen/detail_image_width_height"
-        tools:src="@drawable/carrots"/>
+        tools:src="@drawable/carrots"
+        android:layout_below="@id/product_name"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/product_quantity"
         tools:text="@string/product_quantity"
-        style="@style/DetailViewStyle"/>
+        style="@style/DetailViewStyle"
+        android:layout_below="@id/product_image"/>
 
     <TextView
         android:id="@+id/product_price"
         tools:text="@string/product_price"
-        style="@style/DetailViewStyle"/>
+        style="@style/DetailViewStyle"
+        android:layout_below="@id/product_quantity"/>
 
     <SeekBar
         android:id="@+id/product_price_level"
         android:max="10"
         android:verticalScrollbarPosition="right"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/product_price"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/product_quantity"
+        android:padding="@dimen/detail_item_view_padding"/>
 
     <TextView
         android:id="@+id/product_supplier"
         tools:text="@string/product_supplier"
-        style="@style/DetailViewStyle"/>
+        style="@style/DetailViewStyle"
+        android:layout_below="@id/product_price"/>
 
-</LinearLayout>
+</RelativeLayout>

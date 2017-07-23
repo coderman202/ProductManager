@@ -36,6 +36,7 @@
 
     <!--PLACEHOLDER STRINGS-->
     <string name="placeholder_product_name">Carrots</string>
+    <string name="placeholder_product_category">Bakery</string>
 
     <!--CONTENT DESCRIPTION STRINGS-->
     <string name="content_desc_product_img">Product Image</string>
