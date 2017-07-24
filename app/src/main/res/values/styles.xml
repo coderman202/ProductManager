@@ -25,6 +25,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--CUSTOM DIALOG STYLE-->
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
     <!--STYLES FOR THE LIST ITEMS-->
     <style name="ListItemButtonStyle">
         <item name="android:layout_width">wrap_content</item>

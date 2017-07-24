@@ -41,7 +41,7 @@ public class DeleteProductAlertDialog extends Dialog implements View.OnClickList
 
 
     public DeleteProductAlertDialog(Context context, int productID, String confirmed, String cancelled, String dialogTitle) {
-        super(context);
+        super(context, R.style.CustomDialogStyle);
         this.context = context;
         this.productID = productID;
         this.deleteCancelled = cancelled;
