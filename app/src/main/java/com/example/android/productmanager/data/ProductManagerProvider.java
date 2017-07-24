@@ -527,6 +527,4 @@ public class ProductManagerProvider extends ContentProvider {
                 throw new IllegalStateException(dbHelper.getContext().getString(R.string.content_uri_unknown_exception, uri, match));
         }
     }
-
-
 }

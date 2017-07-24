@@ -1,4 +1,4 @@
-package com.example.android.productmanager.dialog;
+package com.example.android.productmanager.dialogs;
 
 import android.app.Dialog;
 import android.content.ContentValues;
@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
  * Custom dialog class which displays the details of the item you are about to add and asks for
  * confirmation.
  */
-
 public class AddProductConfirmDialog extends Dialog implements View.OnClickListener {
 
     private Context context;

@@ -1,4 +1,4 @@
-package com.example.android.productmanager.dialog;
+package com.example.android.productmanager.dialogs;
 
 import android.app.Dialog;
 import android.content.ContentUris;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,29 +30,35 @@ public class DeleteProductAlertDialog extends Dialog implements View.OnClickList
     private int productID;
     private String deleteConfirmed;
     private String deleteCancelled;
+    private String dialogTitle;
 
+    @BindView(R.id.title_view)
+    TextView titleView;
     @BindView(R.id.yes_button)
     TextView yesView;
     @BindView(R.id.no_button)
     TextView noView;
 
 
-    public DeleteProductAlertDialog(Context context, int productID, String confirmed, String cancelled) {
+    public DeleteProductAlertDialog(Context context, int productID, String confirmed, String cancelled, String dialogTitle) {
         super(context);
         this.context = context;
         this.productID = productID;
         this.deleteCancelled = cancelled;
         this.deleteConfirmed = confirmed;
+        this.dialogTitle = dialogTitle;
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.delete_product_yes_no_dialog);
 
         ButterKnife.bind(this);
 
+        titleView.setText(dialogTitle);
         yesView.setOnClickListener(this);
         noView.setOnClickListener(this);
     }

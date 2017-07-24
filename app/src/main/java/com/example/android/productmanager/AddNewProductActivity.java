@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.android.productmanager.adapters.CategorySpinnerAdapter;
 import com.example.android.productmanager.adapters.SupplierSpinnerAdapter;
 import com.example.android.productmanager.data.ProductManagerContract;
-import com.example.android.productmanager.dialog.AddProductConfirmDialog;
+import com.example.android.productmanager.dialogs.AddProductConfirmDialog;
 import com.example.android.productmanager.model.Category;
 import com.example.android.productmanager.model.Product;
 import com.example.android.productmanager.model.Supplier;

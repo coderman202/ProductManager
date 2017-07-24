@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.productmanager.data.ProductManagerContract;
-import com.example.android.productmanager.dialog.DeleteProductAlertDialog;
+import com.example.android.productmanager.dialogs.DeleteProductAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -277,10 +277,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
      */
     public void deleteProduct() {
 
-        DeleteProductAlertDialog dialog = new DeleteProductAlertDialog(this, productID, deleteConfirmed, deleteCancelled);
-        dialog.setTitle(dialogTitle);
-        TextView titleView = dialog.findViewById(android.R.id.title);
-        titleView.setSingleLine(false);
+        DeleteProductAlertDialog dialog = new DeleteProductAlertDialog(this, productID, deleteConfirmed, deleteCancelled, dialogTitle);
         dialog.show();
     }
 

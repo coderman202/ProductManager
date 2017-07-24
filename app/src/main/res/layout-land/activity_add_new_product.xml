@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:descendantFocusability="beforeDescendants"
+    android:padding="@dimen/activity_horizontal_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        tools:context="com.example.android.productmanager.AddNewProductActivity">
+
+        <EditText
+            style="@style/DetailViewStyle"
+            android:id="@+id/name_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:layout_alignParentTop="true"
+            android:hint="@string/enter_product_name"/>
+
+        <LinearLayout
+            android:id="@+id/set_price_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                style="@style/DetailViewStyle"
+                android:id="@+id/set_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_price_text"/>
+
+            <TextView
+                style="@style/DetailViewStyle"
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/initial_price"/>
+
+            <SeekBar
+                android:id="@+id/price_setter"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:progress="1"
+                android:max="2500"
+                android:thumb="@drawable/seekbar_thumb"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/set_quantity_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/set_price_layout"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/DetailViewStyle"
+                android:id="@+id/set_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/set_quantity_text"/>
+
+            <NumberPicker
+                style="@style/DetailViewStyle"
+                android:id="@+id/quantity_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/list_item_view_padding"/>
+
+            <NumberPicker
+                style="@style/DetailViewStyle"
+                android:id="@+id/unit_selector"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center_vertical"
+                android:layout_margin="@dimen/list_item_view_padding"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/set_supplier_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/set_quantity_layout"
+            android:layout_above="@+id/set_category_layout"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                style="@style/DetailViewStyle"
+                android:id="@+id/set_supplier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_supplier_text"/>
+
+            <Spinner
+                android:id="@+id/supplier_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/set_category_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/set_quantity_layout"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                style="@style/DetailViewStyle"
+                android:id="@+id/set_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_category_text"/>
+
+            <Spinner
+                android:id="@+id/category_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/DetailsButtonStyle"
+            android:id="@+id/add_new_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@string/add_new_product"/>
+
+    </RelativeLayout>
+</ScrollView>

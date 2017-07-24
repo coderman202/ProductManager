@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
  * Created by Reggie on 23/07/2017.
  * Custom spinner adapter for the category selector in the AddNewProductActivity
  */
-
 public class SupplierSpinnerAdapter extends ArrayAdapter<Supplier> {
 
     static class ViewHolder {

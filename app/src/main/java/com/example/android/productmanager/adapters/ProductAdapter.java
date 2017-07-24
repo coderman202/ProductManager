@@ -29,23 +29,28 @@ import butterknife.ButterKnife;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
+    // Cursor which stores all the results.
     private Cursor cursor;
-
     private Context context;
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.product_name) TextView nameView;
-        @BindView(R.id.product_image) ImageView imageView;
-        @BindView(R.id.product_quantity) TextView quantityView;
-        @BindView(R.id.product_price) TextView priceView;
-        @BindView(R.id.product_sale_button) TextView saleView;
-        @BindView(R.id.product_details_button) TextView detailsView;
+        @BindView(R.id.product_name)
+        TextView nameView;
+        @BindView(R.id.product_image)
+        ImageView imageView;
+        @BindView(R.id.product_quantity)
+        TextView quantityView;
+        @BindView(R.id.product_price)
+        TextView priceView;
+        @BindView(R.id.product_sale_button)
+        TextView saleView;
+        @BindView(R.id.product_details_button)
+        TextView detailsView;
 
         // This will be used for the quantity to allow the decrease to work in the onClick() method.
         int stockLevel;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -57,13 +62,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if ( null == cursor ) return 0;
+        if (null == cursor) return 0;
         cursor.moveToFirst();
         return cursor.getCount();
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
         return new ViewHolder(view);
     }
@@ -142,9 +147,4 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         cursor = newCursor;
         notifyDataSetChanged();
     }
-
-    public Cursor getCursor() {
-        return cursor;
-    }
-
 }
