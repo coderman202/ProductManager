@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.android.productmanager.MainActivity"
     tools:showIn="@layout/app_bar_main">
@@ -16,6 +17,17 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_view_text"
+        android:textColor="@color/nav_header_start_color"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:drawableTop="@drawable/empty_list"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

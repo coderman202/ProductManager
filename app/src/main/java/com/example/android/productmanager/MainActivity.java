@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.android.productmanager.adapters.ProductAdapter;
 import com.example.android.productmanager.data.ProductManagerContract;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final int PRODUCT_LOADER_ID = 1;
 
+    // Array of columns to be passed when a query to the Product Table is made
     public static final String[] PRODUCT_ENTRY_COLUMNS = {
             ProductManagerContract.ProductEntry.PK_PRODUCT_ID,
             ProductManagerContract.ProductEntry.NAME,
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity
             ProductManagerContract.ProductEntry.FK_SUPPLIER_ID
     };
 
+    // Array of columns to be passed when a query to the Category Table is made. Specifically when
+    // the nav drawer is to be populated with list of categories.
     public static final String[] CATEGORY_ENTRY_COLUMNS = {
             ProductManagerContract.CategoryEntry.PK_CATEGORY_ID,
             ProductManagerContract.CategoryEntry.NAME,
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     List<Category> categoryList = new ArrayList<>();
 
+    // This button leads to the Add Product Activity.
     @BindView(R.id.fab) FloatingActionButton fab;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -81,6 +86,9 @@ public class MainActivity extends AppCompatActivity
     RecyclerView productListView;
     LinearLayoutManager layoutManager;
     ProductAdapter productAdapter;
+    // The empty view to be displayed if the adapter is empty
+    @BindView(R.id.empty_view)
+    TextView emptyView;
 
     // This will be set when a category is chosen in the nav drawer. Set default as -1.
     private int categoryID = -1;
@@ -175,8 +183,6 @@ public class MainActivity extends AppCompatActivity
             MenuItem item = subMenu.add(Menu.NONE, i, 0, name);
             item.setOnMenuItemClickListener(this);
         }
-
-
         navView.setNavigationItemSelectedListener(this);
     }
 
@@ -211,26 +217,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /**
+     * A method to check if the adapter is empty and tell the user to search again.
+     */
+    private void checkForEmptyList() {
+        if (productAdapter.getItemCount() == 0) {
+            productListView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            productListView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -263,14 +260,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         productAdapter.swapCursor(data);
-
-
-        if (productAdapter.getItemCount() == 0) {
-
-        }
-
-
-
+        checkForEmptyList();
     }
 
     @Override

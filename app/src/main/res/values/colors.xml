@@ -9,10 +9,8 @@
 
     <color name="base_font_color">#000000</color>
 
-    <color name="button_color">#1A237E</color>
     <color name="button_text_color">#FFFFFF</color>
 
-    <color name="fab_color">#EF6C00</color>
 
     <!--Color gradient for the nav header-->
     <color name="nav_header_end_color">#212121</color>
@@ -28,20 +26,6 @@
     <color name="button_delete_end_color">#B71C1C</color>
     <color name="button_delete_centre_color">#FF1744</color>
     <color name="button_delete_start_color">#E57373</color>
-
-
-    <!--Color gradient for seekbar-->
-    <color name="seekbar_empty_end_color">#78909C</color>
-    <color name="seekbar_empty_centre_color">#BDBDBD</color>
-    <color name="seekbar_empty_start_color">@color/nav_header_start_color</color>
-
-    <color name="seekbar_secondary_end_color">#E65100</color>
-    <color name="seekbar_secondary_centre_color">#F57C00</color>
-    <color name="seekbar_secondary_start_color">#FFCC80</color>
-
-    <color name="seekbar_progress_end_color">@color/button_end_color</color>
-    <color name="seekbar_progress_centre_color">@color/button_centre_color</color>
-    <color name="seekbar_progress_start_color">@color/button_start_color</color>
 
 
 </resources>
