@@ -47,10 +47,20 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
     TextView yesView;
     @BindView(R.id.no_button)
     TextView noView;
+    @BindView(R.id.image_choose_left)
+    ImageView leftButton;
+    @BindView(R.id.image_choose_right)
+    ImageView rightButton;
+
+    // Array of possible images that can be chosen for the product.
+    private String[] imagesArray = new String[]{"product_placeholder", "apple_red", "banana",
+            "beef_round_roast", "broccoli", "cabbage_red", "lemons", "leeks", "orange",
+            "parsnips", "pork_chops", "sea_bass_fillets"};
+    private int imgPosition = 0;
 
 
     public AddProductConfirmDialog(Context context, Product product) {
-        super(context/*, R.style.DialogTheme*/);
+        super(context);
         this.context = context;
         this.product = product;
     }
@@ -65,6 +75,9 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
         yesView.setOnClickListener(this);
         noView.setOnClickListener(this);
 
+        leftButton.setOnClickListener(this);
+        rightButton.setOnClickListener(this);
+
         String productName = product.getProductName();
         float price = product.getSalePrice();
         int quantity = product.getQuantity();
@@ -73,10 +86,10 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
         String supplierName = product.getSupplier().getSupplierName();
         String categoryName = product.getCategory().getCategoryName();
 
-        int productImageResID = product.getPicID();
+        int productImageResID = getImageResID();
 
-        String productQuantity = context.getString(R.string.product_quantity, quantity, quantityUnit);
-        String productPrice = context.getString(R.string.product_price, price, quantityUnit);
+        String productQuantity = context.getString(R.string.confirm_product_quantity, quantity, quantityUnit);
+        String productPrice = context.getString(R.string.confirm_product_price, price, quantityUnit);
         String categoryText = context.getString(R.string.product_category, categoryName);
         String supplierText = context.getString(R.string.product_supplier, supplierName);
 
@@ -94,15 +107,35 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
             case R.id.yes_button:
                 addProductToDB();
                 Toast.makeText(context, R.string.confirm_dialog_success, Toast.LENGTH_LONG).show();
+                dismiss();
                 break;
             case R.id.no_button:
                 Toast.makeText(context, R.string.confirm_dialog_cancel, Toast.LENGTH_LONG).show();
                 dismiss();
                 break;
+            case R.id.image_choose_left:
+                if (imgPosition > 0) {
+                    imgPosition--;
+                } else {
+                    imgPosition = imagesArray.length - 1;
+                }
+                imageView.setImageResource(getImageResID());
+                break;
+            case R.id.image_choose_right:
+                if (imgPosition < imagesArray.length - 1) {
+                    imgPosition++;
+                } else {
+                    imgPosition = 0;
+                }
+                imageView.setImageResource(getImageResID());
+                break;
             default:
                 break;
         }
-        dismiss();
+    }
+
+    public int getImageResID() {
+        return context.getResources().getIdentifier(imagesArray[imgPosition], "drawable", context.getPackageName());
     }
 
     /**
@@ -115,7 +148,7 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
         values.put(ProductManagerContract.ProductEntry.QUANTITY, product.getQuantity());
         values.put(ProductManagerContract.ProductEntry.QUANTITY_UNIT, product.getQuantityUnit());
         values.put(ProductManagerContract.ProductEntry.SALE_PRICE, product.getSalePrice());
-        values.put(ProductManagerContract.ProductEntry.PIC_ID, "product_placeholder");
+        values.put(ProductManagerContract.ProductEntry.PIC_ID, imagesArray[imgPosition]);
         values.put(ProductManagerContract.ProductEntry.FK_CATEGORY_ID, product.getCategory().getCategoryID());
         values.put(ProductManagerContract.ProductEntry.FK_SUPPLIER_ID, product.getSupplier().getSupplierID());
 

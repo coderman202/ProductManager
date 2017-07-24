@@ -35,7 +35,6 @@
         You need to order more <xliff:g name="product" example="Bananas">%s</xliff:g>.
         See details for more information.</string>
 
-
     <!--NAV DRAWER TITLES-->
     <string name="nav_header_text">Category Browser</string>
     <string name="nav_subheader_text">Refresh product list by category</string>
@@ -62,6 +61,8 @@
     <string name="product_delete_rejection">
         You chose not to delete <xliff:g name="product_name" example="Lemons">%s</xliff:g>.
     </string>
+    <string name="product_decrease">-</string>
+    <string name="product_increase">+</string>
 
     <!--ADD PRODUCT STRINGS-->
     <string name="enter_product_name">Enter Product Name</string>
@@ -81,6 +82,12 @@
     <string name="confirm_dialog_title">Confirm Details?</string>
     <string name="confirm_dialog_success">Product added successfully</string>
     <string name="confirm_dialog_cancel">Product not added</string>
+    <string name="confirm_product_quantity">
+        Stock: <xliff:g name="quantity" example="150">%d</xliff:g>
+        <xliff:g name="quantity_unit" example="kg">%s</xliff:g></string>
+    <string name="confirm_product_price">
+        Price: €<xliff:g name="price" example="5.50">%1$.2f</xliff:g> per
+        <xliff:g name="quantity_unit" example="kg">%2$s</xliff:g></string>
 
     <!--PLACEHOLDER STRINGS-->
     <string name="placeholder_product_name">Carrots</string>
@@ -88,7 +95,7 @@
 
     <!--CONTENT DESCRIPTION STRINGS-->
     <string name="content_desc_product_img">Product Image</string>
-
+    <string name="image_choice_button_description">Scroll through image button</string>
 
     <!--STRINGS FOR DEALING WITH EXCEPTIONS -->
     <string name="url_exception">Problem with the request URL</string>
@@ -121,7 +128,5 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
-    <string name="product_decrease">-</string>
-    <string name="product_increase">+</string>
 
 </resources>
