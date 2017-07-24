@@ -1,13 +1,17 @@
 package com.example.android.productmanager.dialog;
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.productmanager.R;
+import com.example.android.productmanager.data.ProductManagerContract;
 import com.example.android.productmanager.model.Product;
 
 import butterknife.BindView;
@@ -40,6 +44,7 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
     TextView yesView;
     @BindView(R.id.no_button)
     TextView noView;
+
 
 
     public AddProductConfirmDialog(Context context, Product product) {
@@ -85,13 +90,33 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.yes_button:
+                addProductToDB();
+                Toast.makeText(context, R.string.confirm_dialog_success, Toast.LENGTH_LONG).show();
                 break;
             case R.id.no_button:
+                Toast.makeText(context, R.string.confirm_dialog_cancel, Toast.LENGTH_LONG).show();
                 dismiss();
                 break;
             default:
                 break;
         }
         dismiss();
+    }
+
+    public void addProductToDB() {
+
+        ContentValues values = new ContentValues();
+        values.put(ProductManagerContract.ProductEntry.NAME, product.getProductName());
+        values.put(ProductManagerContract.ProductEntry.QUANTITY, product.getQuantity());
+        values.put(ProductManagerContract.ProductEntry.QUANTITY_UNIT, product.getQuantityUnit());
+        values.put(ProductManagerContract.ProductEntry.SALE_PRICE, product.getSalePrice());
+        values.put(ProductManagerContract.ProductEntry.PIC_ID, "product_placeholder");
+        values.put(ProductManagerContract.ProductEntry.FK_CATEGORY_ID, product.getCategory().getCategoryID());
+        values.put(ProductManagerContract.ProductEntry.FK_SUPPLIER_ID, product.getSupplier().getSupplierID());
+
+        Uri uri = ProductManagerContract.ProductEntry.CONTENT_URI;
+
+        context.getContentResolver().insert(uri, values);
+
     }
 }

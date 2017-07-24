@@ -77,6 +77,8 @@
     <string name="yes_button_dialog_text">Yes</string>
     <string name="no_button_dialog_text">No</string>
     <string name="confirm_dialog_title">Confirm Details?</string>
+    <string name="confirm_dialog_success">Product added successfully</string>
+    <string name="confirm_dialog_cancel">Product not added</string>
 
     <!--PLACEHOLDER STRINGS-->
     <string name="placeholder_product_name">Carrots</string>
@@ -117,5 +119,4 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
-
 </resources>
