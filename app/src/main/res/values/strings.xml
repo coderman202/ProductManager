@@ -27,6 +27,9 @@
     <string name="product_supplier">
         Current Supplier: <xliff:g name="supplier" example="Ace Meats Ltd.">%s</xliff:g></string>
 
+    <string name="product_category">
+        Category: <xliff:g name="category" example="Bakery">%s</xliff:g></string>
+
 
     <!--NAV DRAWER TITLES-->
     <string name="title_add_new">Add New</string>
@@ -60,11 +63,20 @@
 
     <!--ADD PRODUCT STRINGS-->
     <string name="enter_product_name">Enter Product Name</string>
-    <string name="set_price_text">Set price:</string>
+    <string name="set_price_text">Set price per unit:</string>
     <string name="set_quantity_text">Set quantity:</string>
     <string name="set_supplier_text">Choose supplier:</string>
     <string name="set_category_text">Choose category:</string>
     <string name="add_new_product">Add new product to database?</string>
+    <string name="initial_price">€0.00</string>
+    <string name="valid_quantity_unit_text">You must choose a unit of quantity</string>
+    <string name="valid_price_text">You must enter a valid price</string>
+    <string name="valid_product_text">You must enter a product name</string>
+
+    <!--CONFIRM DIALOG STRINGS-->
+    <string name="yes_button_dialog_text">Yes</string>
+    <string name="no_button_dialog_text">No</string>
+    <string name="confirm_dialog_title">Confirm Details?</string>
 
     <!--PLACEHOLDER STRINGS-->
     <string name="placeholder_product_name">Carrots</string>
@@ -105,5 +117,5 @@
     <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
     <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
-    <string name="initial_price">€0.00</string>
+
 </resources>

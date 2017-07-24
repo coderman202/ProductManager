@@ -17,6 +17,16 @@ public class Supplier {
 
     private String phone;
 
+    /**
+     * Instantiates a new Supplier.
+     *
+     * @param supplierID   the supplier id
+     * @param supplierName the supplier name
+     */
+    public Supplier(int supplierID, String supplierName) {
+        this.supplierID = supplierID;
+        this.supplierName = supplierName;
+    }
 
     /**
      * Instantiates a new Supplier with an id which means it has been retrieved from the db.

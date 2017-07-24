@@ -13,7 +13,7 @@ public class Product {
 
     private Category category;
 
-    private int salePrice;
+    private float salePrice;
 
     private int quantity;
 
@@ -35,7 +35,7 @@ public class Product {
      * @param supplier     the supplier
      * @param picID        the pic id
      */
-    public Product(int productID, String productName, Category category, int salePrice, int quantity, String quantityUnit, Supplier supplier, int picID) {
+    public Product(int productID, String productName, Category category, float salePrice, int quantity, String quantityUnit, Supplier supplier, int picID) {
         this.productID = productID;
         this.productName = productName;
         this.category = category;
@@ -57,7 +57,7 @@ public class Product {
      * @param supplier     the supplier
      * @param picID        the pic id
      */
-    public Product(String productName, Category category, int salePrice, int quantity, String quantityUnit, Supplier supplier, int picID) {
+    public Product(String productName, Category category, float salePrice, int quantity, String quantityUnit, Supplier supplier, int picID) {
         this.productName = productName;
         this.category = category;
         this.salePrice = salePrice;
@@ -99,7 +99,7 @@ public class Product {
      *
      * @return the sale price
      */
-    public int getSalePrice() {
+    public float getSalePrice() {
         return salePrice;
     }
 

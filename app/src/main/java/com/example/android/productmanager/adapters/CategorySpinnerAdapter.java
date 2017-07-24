@@ -1,6 +1,7 @@
 package com.example.android.productmanager.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -57,5 +58,13 @@ public class CategorySpinnerAdapter extends ArrayAdapter<Category> {
         holder.spinnerItem.setText(currentCategory.getCategoryName());
 
         return spinnerItemView;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        TextView label = (TextView) super.getView(position, convertView, parent);
+        label.setTextColor(Color.BLACK);
+        label.setText(this.getItem(position).getCategoryName());
+        return label;
     }
 }

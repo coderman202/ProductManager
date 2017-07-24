@@ -14,6 +14,17 @@ public class Category {
     private int iconID;
 
     /**
+     * Instantiates a new Category.
+     *
+     * @param categoryID   the category id
+     * @param categoryName the category name
+     */
+    public Category(int categoryID, String categoryName) {
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
+    }
+
+    /**
      * Instantiates a new Category with an id which means it has been retrieved from the db.
      *
      * @param categoryID   the category id

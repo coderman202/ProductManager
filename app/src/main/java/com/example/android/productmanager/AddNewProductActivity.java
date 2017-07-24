@@ -1,6 +1,7 @@
 package com.example.android.productmanager;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -16,11 +17,14 @@ import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.productmanager.adapters.CategorySpinnerAdapter;
 import com.example.android.productmanager.adapters.SupplierSpinnerAdapter;
 import com.example.android.productmanager.data.ProductManagerContract;
+import com.example.android.productmanager.dialog.AddProductConfirmDialog;
 import com.example.android.productmanager.model.Category;
+import com.example.android.productmanager.model.Product;
 import com.example.android.productmanager.model.Supplier;
 import com.example.android.productmanager.utils.ProductManagerUtils;
 
@@ -46,6 +50,8 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     SeekBar priceSetter;
     @BindView(price)
     TextView priceView;
+    @BindView(R.id.set_price)
+    TextView setPriceView;
     @BindView(R.id.unit_selector)
     NumberPicker unitSelector;
     @BindView(R.id.supplier_selector)
@@ -87,8 +93,10 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     private int categoryID;
     private int supplierID;
     private int quantity;
-    private String quantityUnit;
+    private String quantityUnit = "";
     private float salePrice;
+    private String supplierName;
+    private String categoryName;
 
 
 
@@ -118,14 +126,14 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initNameEditText() {
-        /*nameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        nameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard();
                 }
             }
-        });*/
+        });
 
     }
 
@@ -155,7 +163,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
         int id = view.getId();
         switch (id) {
             case R.id.add_new_product:
-                getAllProductValues();
+                validateEntries();
                 break;
         }
     }
@@ -218,6 +226,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 categoryID = categoryList.get(i).getCategoryID();
+                categoryName = categoryList.get(i).getCategoryName();
             }
 
             @Override
@@ -243,6 +252,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 supplierID = supplierList.get(i).getSupplierID();
+                supplierName = supplierList.get(i).getSupplierName();
             }
 
             @Override
@@ -252,10 +262,29 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    public void getAllProductValues() {
+    public void validateEntries() {
 
         productName = nameEditText.getText().toString();
 
+        Log.e(supplierName, categoryName);
+
+        if (productName.equals("")) {
+            nameEditText.setHintTextColor(Color.RED);
+            Toast.makeText(this, R.string.valid_product_text, Toast.LENGTH_LONG).show();
+        } else if (salePrice == 0) {
+            setPriceView.setTextColor(Color.RED);
+            Toast.makeText(this, R.string.valid_price_text, Toast.LENGTH_LONG).show();
+        } else if (quantityUnit.equals("")) {
+            Toast.makeText(this, R.string.valid_quantity_unit_text, Toast.LENGTH_LONG).show();
+        } else {
+            Supplier supplier = new Supplier(supplierID, supplierName);
+            Category category = new Category(categoryID, categoryName);
+            Product product = new Product(productName, category, salePrice, quantity, quantityUnit, supplier, R.drawable.product_placeholder);
+
+            AddProductConfirmDialog dialog = new AddProductConfirmDialog(this, product);
+            dialog.setTitle(R.string.confirm_dialog_title);
+            dialog.show();
+        }
 
     }
 
