@@ -137,6 +137,9 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    /**
+     * Sets up the {@link SeekBar} price setter with a listener to get the price.
+     */
     private void initPriceSetter() {
         priceSetter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -169,7 +172,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     }
 
     /**
-     * First set the number picker to select the stock level to count up by 5.
+     * First set the {@link NumberPicker} to select the stock level to count up by 5.
      * Set a second picker to choose the unit of quantity by passing in an array of strings which
      * equals the possible units.
      */
@@ -211,7 +214,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     }
 
     /**
-     * Set up the category spinner to choose category. Get category list from the db.
+     * Set up the category {@link Spinner} to choose category. Get category list from the db.
      */
     private void initCategorySpinner() {
         String sortOrder = ProductManagerContract.CategoryEntry.NAME + " ASC";
@@ -237,7 +240,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     }
 
     /**
-     * Set up the supplier spinner to choose supplier. Get supplier list from the db.
+     * Set up the supplier {@link Spinner} to choose supplier. Get supplier list from the db.
      */
     private void initSupplierSpinner() {
         String sortOrder = ProductManagerContract.SupplierEntry.NAME + " ASC";
@@ -262,6 +265,10 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
         });
     }
 
+    /**
+     * I method which ensures all the entries are valid and displays a toast warning the user if
+     * not.
+     */
     public void validateEntries() {
 
         productName = nameEditText.getText().toString();
@@ -285,7 +292,6 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             dialog.setTitle(R.string.confirm_dialog_title);
             dialog.show();
         }
-
     }
 
     /**

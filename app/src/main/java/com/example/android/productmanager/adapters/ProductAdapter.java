@@ -1,15 +1,19 @@
 package com.example.android.productmanager.adapters;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.productmanager.ProductDetailsActivity;
 import com.example.android.productmanager.R;
@@ -38,6 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         @BindView(R.id.product_sale_button) TextView saleView;
         @BindView(R.id.product_details_button) TextView detailsView;
 
+        // This will be used for the quantity to allow the decrease to work in the onClick() method.
+        int stockLevel;
+
         public ViewHolder(View view){
             super(view);
             ButterKnife.bind(this, view);
@@ -62,15 +69,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
         final int productID = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PK_PRODUCT_ID));
 
-        String productName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.NAME));
-        float price = cursor.getFloat(cursor.getColumnIndex(ProductManagerContract.ProductEntry.SALE_PRICE));
+        final String productName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.NAME));
+        final float price = cursor.getFloat(cursor.getColumnIndex(ProductManagerContract.ProductEntry.SALE_PRICE));
         int quantity = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.ProductEntry.QUANTITY));
-        String quantityUnit = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.QUANTITY_UNIT));
+        final String quantityUnit = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.QUANTITY_UNIT));
 
         // Get the image resource id from the image file name String stored in the db.
         String imageFileName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PIC_ID));
@@ -101,6 +108,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             }
         });
 
+        // Now decrement the quantity and make sure it cannot become negative.
+        holder.stockLevel = quantity;
+        holder.saleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.stockLevel > 0) {
+                    holder.stockLevel--;
+                } else {
+                    Toast.makeText(context, context.getString(R.string.order_prompt_message, productName), Toast.LENGTH_LONG).show();
+                }
+                String productQuantity = context.getString(R.string.product_quantity, holder.stockLevel, quantityUnit);
+                holder.quantityView.setText(productQuantity);
+
+                if (holder.stockLevel < 10) {
+                    holder.quantityView.setTextColor(Color.RED);
+                } else {
+                    holder.quantityView.setTextColor(Color.BLACK);
+                }
+
+                ContentValues values = new ContentValues();
+                values.put(ProductManagerContract.ProductEntry.QUANTITY, holder.stockLevel);
+
+                Uri uri = ContentUris.withAppendedId(ProductManagerContract.ProductEntry.CONTENT_URI, productID);
+
+                context.getContentResolver().update(uri, values, ProductManagerContract.ProductEntry.QUANTITY, null);
+            }
+        });
+
     }
 
     public void swapCursor(Cursor newCursor) {
@@ -111,6 +146,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public Cursor getCursor() {
         return cursor;
     }
-
 
 }

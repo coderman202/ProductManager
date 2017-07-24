@@ -19,13 +19,17 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Reggie on 24/07/2017.
- * Custom dialog class
+ * Custom dialog class which displays the details of the item you are about to add and asks for
+ * confirmation.
  */
 
 public class AddProductConfirmDialog extends Dialog implements View.OnClickListener {
 
     private Context context;
 
+    /**
+     * Custom {@link Product} object which has all product info to be added
+     */
     private Product product;
 
     @BindView(R.id.product_name)
@@ -46,9 +50,8 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
     TextView noView;
 
 
-
     public AddProductConfirmDialog(Context context, Product product) {
-        super(context, R.style.DialogTheme);
+        super(context/*, R.style.DialogTheme*/);
         this.context = context;
         this.product = product;
     }
@@ -103,6 +106,9 @@ public class AddProductConfirmDialog extends Dialog implements View.OnClickListe
         dismiss();
     }
 
+    /**
+     * A method to add a new product to the db if confirmed.
+     */
     public void addProductToDB() {
 
         ContentValues values = new ContentValues();

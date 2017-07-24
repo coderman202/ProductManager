@@ -30,6 +30,10 @@
     <string name="product_category">
         Category: <xliff:g name="category" example="Bakery">%s</xliff:g></string>
 
+    <string name="order_prompt_message">
+        You need to order more <xliff:g name="product" example="Bananas">%s</xliff:g>.
+        See details for more information.</string>
+
 
     <!--NAV DRAWER TITLES-->
     <string name="title_add_new">Add New</string>

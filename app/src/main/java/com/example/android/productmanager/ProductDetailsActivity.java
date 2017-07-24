@@ -2,7 +2,6 @@ package com.example.android.productmanager;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -11,15 +10,14 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.productmanager.data.ProductManagerContract;
+import com.example.android.productmanager.dialog.DeleteProductAlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,6 +151,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         deleteConfirmed = getString(R.string.product_delete_confirmation, productName);
         deleteCancelled = getString(R.string.product_delete_rejection, productName);
 
+        if (quantity < 10) {
+            quantityView.setTextColor(Color.RED);
+        } else {
+            quantityView.setTextColor(Color.BLACK);
+        }
+
         cursor.close();
     }
 
@@ -273,23 +277,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
      */
     public void deleteProduct() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(dialogTitle);
-        builder.setPositiveButton(R.string.product_delete_dialog_yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Uri uri = ContentUris.withAppendedId(ProductManagerContract.ProductEntry.CONTENT_URI, productID);
-                getContentResolver().delete(uri, null, null);
-                Toast.makeText(getApplicationContext(), deleteConfirmed, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton(R.string.product_delete_dialog_no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(getApplicationContext(), deleteCancelled, Toast.LENGTH_LONG).show();
-            }
-        });
-        AlertDialog dialog = builder.create();
+        DeleteProductAlertDialog dialog = new DeleteProductAlertDialog(this, productID, deleteConfirmed, deleteCancelled);
+        dialog.setTitle(dialogTitle);
+        TextView titleView = dialog.findViewById(android.R.id.title);
+        titleView.setSingleLine(false);
         dialog.show();
     }
 
