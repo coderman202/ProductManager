@@ -23,4 +23,6 @@
     <!--BUTTON DIMENS-->
     <dimen name="button_padding">4dp</dimen>
     <dimen name="button_margin">8dp</dimen>
+
+    <dimen name="image_width_height">100dp</dimen>
 </resources>

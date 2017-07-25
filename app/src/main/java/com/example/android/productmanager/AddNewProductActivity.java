@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
@@ -71,9 +72,8 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     @BindView(R.id.product_image)
     ImageView productImageView;
 
-    // Declare request code and intent to get image later if the image select button is pressed
+    // Declare request code for retrieving image
     private static final int READ_REQUEST_CODE = 42;
-    Intent imageIntent = new Intent(Intent.ACTION_PICK);
 
     List<Category> categoryList = new ArrayList<>();
 
@@ -185,6 +185,11 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
                 validateEntries();
                 break;
             case R.id.image_selector:
+                Intent imageIntent = new Intent(Intent.ACTION_PICK);
+                // Ensure the build version is new enough before granting any permissions
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    imageIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                }
                 imageIntent.setType("image/*");
                 startActivityForResult(imageIntent, READ_REQUEST_CODE);
                 break;
@@ -204,10 +209,13 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
                 productImageView.setImageBitmap(selectedImage);
                 imageFileName = imageUri.toString();
 
-                final int takeFlags = imageIntent.getFlags() &
-                        (Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
+                // Ensure the build version is new enough before granting any permissions
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    int takeFlags = data.getFlags();
+                    takeFlags &= (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
+                }
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(this, R.string.image_selection_error, Toast.LENGTH_LONG).show();

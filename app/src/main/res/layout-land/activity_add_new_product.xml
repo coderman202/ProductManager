@@ -150,12 +150,11 @@
 
         <ImageView
             android:id="@+id/product_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_above="@id/image_selector"
             android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:src="@drawable/product_placeholder"/>
+            android:src="@drawable/product_placeholder"
+            android:contentDescription="@string/content_desc_product_img"
+            style="@style/AddProductImageStyle"/>
 
         <TextView
             style="@style/DetailsButtonStyle"

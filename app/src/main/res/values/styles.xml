@@ -88,4 +88,10 @@
         <item name="android:textColor">@color/base_font_color</item>
     </style>
 
+    <style name="AddProductImageStyle">
+        <item name="android:layout_width">@dimen/image_width_height</item>
+        <item name="android:layout_height">@dimen/image_width_height</item>
+        <item name="android:layout_margin">@dimen/activity_horizontal_margin</item>
+    </style>
+
 </resources>
