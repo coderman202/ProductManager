@@ -134,15 +134,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         quantity = cursor.getInt(cursor.getColumnIndex(ProductManagerContract.ProductEntry.QUANTITY));
         quantityUnit = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.QUANTITY_UNIT));
 
-        // Get the image resource id from the image file name String stored in the db.
         String imageFileName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PIC_ID));
-        int productImageResID = getResources().getIdentifier(imageFileName, "drawable", getPackageName());
+        Uri imageUri = Uri.parse(imageFileName);
 
         String productQuantity = getString(R.string.product_quantity, quantity, quantityUnit);
         String productPrice = getString(R.string.product_price, price, quantityUnit);
 
         nameView.setText(productName);
-        imageView.setImageResource(productImageResID);
+        imageView.setImageURI(imageUri);
         priceView.setText(productPrice);
         quantityView.setText(productQuantity);
 
