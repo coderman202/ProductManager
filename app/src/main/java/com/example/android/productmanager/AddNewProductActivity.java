@@ -150,7 +150,6 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
                 }
             }
         });
-
     }
 
     /**
@@ -185,7 +184,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
                 validateEntries();
                 break;
             case R.id.image_selector:
-                Intent imageIntent = new Intent(Intent.ACTION_PICK);
+                Intent imageIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 // Ensure the build version is new enough before granting any permissions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     imageIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -245,7 +244,6 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
                 quantity = newVal * 5;
-                Log.e("quantity", quantity + "");
             }
         });
 
@@ -263,7 +261,6 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
                 quantityUnit = unitOptions[newVal];
-                Log.e("unit", quantityUnit);
             }
         });
     }
