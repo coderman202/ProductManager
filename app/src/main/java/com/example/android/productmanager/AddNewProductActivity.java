@@ -1,6 +1,9 @@
 package com.example.android.productmanager;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -28,6 +32,8 @@ import com.example.android.productmanager.model.Product;
 import com.example.android.productmanager.model.Supplier;
 import com.example.android.productmanager.utils.ProductManagerUtils;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +66,14 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     Spinner categorySelector;
     @BindView(R.id.add_new_product)
     TextView addProductButton;
+    @BindView(R.id.image_selector)
+    TextView imageSelectButton;
+    @BindView(R.id.product_image)
+    ImageView productImageView;
+
+    // Declare request code and intent to get image later if the image select button is pressed
+    private static final int READ_REQUEST_CODE = 42;
+    Intent imageIntent = new Intent(Intent.ACTION_PICK);
 
     List<Category> categoryList = new ArrayList<>();
 
@@ -97,6 +111,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
     private float salePrice;
     private String supplierName;
     private String categoryName;
+    private String imageFileName = "";
 
 
 
@@ -113,6 +128,7 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         addProductButton.setOnClickListener(this);
+        imageSelectButton.setOnClickListener(this);
 
         initQuantitySelectors();
         initCategorySpinner();
@@ -168,6 +184,37 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             case R.id.add_new_product:
                 validateEntries();
                 break;
+            case R.id.image_selector:
+                imageIntent.setType("image/*");
+                startActivityForResult(imageIntent, READ_REQUEST_CODE);
+                break;
+        }
+    }
+
+    // Below is the code to handle retrieving the image from the gallery.
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                productImageView.setImageBitmap(selectedImage);
+                imageFileName = imageUri.toString();
+
+                final int takeFlags = imageIntent.getFlags() &
+                        (Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(this, R.string.image_selection_error, Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            Toast.makeText(this, R.string.no_image_select_message, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -283,10 +330,12 @@ public class AddNewProductActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(this, R.string.valid_price_text, Toast.LENGTH_LONG).show();
         } else if (quantityUnit.equals("")) {
             Toast.makeText(this, R.string.valid_quantity_unit_text, Toast.LENGTH_LONG).show();
+        } else if (imageFileName.equals("")) {
+            Toast.makeText(this, R.string.no_image_select_message, Toast.LENGTH_LONG).show();
         } else {
             Supplier supplier = new Supplier(supplierID, supplierName);
             Category category = new Category(categoryID, categoryName);
-            Product product = new Product(productName, category, salePrice, quantity, quantityUnit, supplier, R.drawable.product_placeholder);
+            Product product = new Product(productName, category, salePrice, quantity, quantityUnit, supplier, imageFileName);
 
             AddProductConfirmDialog dialog = new AddProductConfirmDialog(this, product);
             dialog.setTitle(R.string.confirm_dialog_title);

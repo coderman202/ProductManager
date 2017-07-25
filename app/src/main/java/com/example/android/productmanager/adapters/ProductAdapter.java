@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,14 +87,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         // Get the image resource id from the image file name String stored in the db.
         String imageFileName = cursor.getString(cursor.getColumnIndex(ProductManagerContract.ProductEntry.PIC_ID));
-        int productImageResID = context.getResources().getIdentifier(imageFileName, "drawable", context.getPackageName());
+        Uri imageUri = Uri.parse(imageFileName);
+        Log.e(imageFileName, imageUri.toString());
 
         String productQuantity = context.getString(R.string.product_quantity, quantity, quantityUnit);
         String productPrice = context.getString(R.string.product_price, price, quantityUnit);
         String sellItem = context.getString(R.string.product_sale, quantityUnit);
 
         holder.nameView.setText(productName);
-        holder.imageView.setImageResource(productImageResID);
+        holder.imageView.setImageURI(imageUri);
         holder.priceView.setText(productPrice);
         holder.quantityView.setText(productQuantity);
         holder.saleView.setText(sellItem);

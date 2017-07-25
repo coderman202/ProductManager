@@ -21,7 +21,7 @@ public class ProductManagerDBHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = ProductManagerDBHelper.class.getSimpleName();
     private static final String DATABASE_NAME = "ProductManagerDB.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private Context context;
 
@@ -76,7 +76,6 @@ public class ProductManagerDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
     public Context getContext() {
@@ -120,10 +119,10 @@ public class ProductManagerDBHelper extends SQLiteOpenHelper {
      * @param db    the SQLite DB
      */
     public void dropTables(SQLiteDatabase db){
-        String query = "PRAGMA foreign_keys = OFF\n" +
-                "DROP TABLE IF EXISTS" + PRODUCT_TABLE + ";\n" +
-                "DROP TABLE IF EXISTS" + CATEGORY_TABLE + ";\n" +
-                "DROP TABLE IF EXISTS" + SUPPLIER_TABLE + ";\n" +
+        String query = "PRAGMA foreign_keys = OFF;\n" +
+                "DROP TABLE IF EXISTS " + PRODUCT_TABLE + ";\n" +
+                "DROP TABLE IF EXISTS " + CATEGORY_TABLE + ";\n" +
+                "DROP TABLE IF EXISTS " + SUPPLIER_TABLE + ";\n" +
                 "PRAGMA foreign_keys = ON;";
         db.execSQL(query);
     }

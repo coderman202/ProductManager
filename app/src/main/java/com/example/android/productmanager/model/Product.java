@@ -21,7 +21,7 @@ public class Product {
 
     private Supplier supplier;
 
-    private int picID;
+    private String imageUri;
 
     /**
      * Instantiates a new Product with an id which means it has been retrieved from the db.
@@ -33,9 +33,9 @@ public class Product {
      * @param quantity     the quantity
      * @param quantityUnit the quantity unit
      * @param supplier     the supplier
-     * @param picID        the pic id
+     * @param imageUri     the image Uri
      */
-    public Product(int productID, String productName, Category category, float salePrice, int quantity, String quantityUnit, Supplier supplier, int picID) {
+    public Product(int productID, String productName, Category category, float salePrice, int quantity, String quantityUnit, Supplier supplier, String imageUri) {
         this.productID = productID;
         this.productName = productName;
         this.category = category;
@@ -43,7 +43,7 @@ public class Product {
         this.quantity = quantity;
         this.quantityUnit = quantityUnit;
         this.supplier = supplier;
-        this.picID = picID;
+        this.imageUri = imageUri;
     }
 
     /**
@@ -55,16 +55,16 @@ public class Product {
      * @param quantity     the quantity
      * @param quantityUnit the quantity unit
      * @param supplier     the supplier
-     * @param picID        the pic id
+     * @param imageUri     the image Uri
      */
-    public Product(String productName, Category category, float salePrice, int quantity, String quantityUnit, Supplier supplier, int picID) {
+    public Product(String productName, Category category, float salePrice, int quantity, String quantityUnit, Supplier supplier, String imageUri) {
         this.productName = productName;
         this.category = category;
         this.salePrice = salePrice;
         this.quantity = quantity;
         this.quantityUnit = quantityUnit;
         this.supplier = supplier;
-        this.picID = picID;
+        this.imageUri = imageUri;
     }
 
     /**
@@ -130,13 +130,14 @@ public class Product {
         return supplier;
     }
 
+
     /**
-     * Gets pic id.
+     * Gets image uri.
      *
-     * @return the pic id
+     * @return the image uri
      */
-    public int getPicID() {
-        return picID;
+    public String getImageUri() {
+        return imageUri;
     }
 
     /**

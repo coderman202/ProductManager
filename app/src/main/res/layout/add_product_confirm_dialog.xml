@@ -11,62 +11,39 @@
         tools:text="@string/placeholder_product_name"
         style="@style/ListItemHeaderStyle"/>
 
-    <LinearLayout
-        android:id="@+id/product_image_layout"
-        android:layout_alignParentStart="true"
+    <ImageView
+        android:id="@+id/product_image"
+        android:src="@drawable/product_placeholder"
         android:layout_below="@id/product_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/image_choose_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/image_choice_button_description"
-            android:src="@drawable/image_choose_left"/>
-
-        <ImageView
-            android:id="@+id/product_image"
-            android:src="@drawable/product_placeholder"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:contentDescription="@string/content_desc_product_img"
-            style="@style/ListItemViewStyle"/>
-
-        <ImageView
-            android:id="@+id/image_choose_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/image_choice_button_description"
-            android:src="@drawable/image_choose_right"/>
-    </LinearLayout>
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/content_desc_product_img"
+        style="@style/ListItemViewStyle"/>
 
     <TextView
         android:id="@+id/product_quantity"
-        android:layout_toEndOf="@id/product_image_layout"
+        android:layout_toEndOf="@id/product_image"
         android:layout_below="@id/product_name"
         tools:text="@string/product_quantity"
         style="@style/ListItemViewStyle"/>
 
     <TextView
         android:id="@+id/product_price"
-        android:layout_toEndOf="@id/product_image_layout"
+        android:layout_toEndOf="@id/product_image"
         android:layout_below="@id/product_quantity"
         tools:text="@string/product_price"
         style="@style/ListItemViewStyle"/>
 
     <TextView
         android:id="@+id/product_category"
-        android:layout_toEndOf="@id/product_image_layout"
+        android:layout_toEndOf="@id/product_image"
         android:layout_below="@id/product_price"
         tools:text="@string/product_category"
         style="@style/ListItemViewStyle"/>
 
     <TextView
         android:id="@+id/product_supplier"
-        android:layout_toEndOf="@id/product_image_layout"
+        android:layout_toEndOf="@id/product_image"
         android:layout_below="@id/product_category"
         tools:text="@string/product_supplier"
         style="@style/ListItemViewStyle"/>
